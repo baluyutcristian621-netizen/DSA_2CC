@@ -21,7 +21,7 @@ public class Bryan_program {
         
         int sum,diff;
         
-        sum = x+y;
+        sum = x + y;
         diff = x - y;
         System.out.println("sum is:"+sum);
         System.out.println("diff is:"+diff);
