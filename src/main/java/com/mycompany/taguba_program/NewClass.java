@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.taguba_program;
-
+import java.util.Scanner;
 /**
  *
  * @author CL2-PC
@@ -11,12 +11,77 @@ package com.mycompany.taguba_program;
 public class NewClass {
     
     private static void main(String[] args){
-        System.out.println("Hello World!");
-        System.out.println("\|/       (_) ");
-        System.out.println("  '\------(00) ");
-        System.out.println("   ||      (_)");
-        System.out.println("   ||w--||      \|/");
-        System.out.println("  \|/");
+        Scanner input = new Scanner(System.in);
+        System.out.println("[1] Rock");
+        System.out.println("[2] Paper");
+        System.out.println("[3] Scissor");
+        
+        System.out.println("Enter player 1:");
+        int p1 = input.nextInt();
+         System.out.println("Enter player 2:");
+        int p2 = input.nextInt();
+         System.out.println("Enter player 3:");
+        
+        if(p1 == 1 && p2 == 1)
+        {
+        System.out.println("Draw");      
+        }
+        else if(p1 == 1 && p2 == 2 )
+        {
+         System.out.println("Player 2 Wins");
+        }
+        else if(p1 == 1 && p2 == 3)
+        {
+         System.out.println("Player 2 Wins");
+        }  
+        else if(p1 == 2 && p2 == 1 )
+        {
+         System.out.println("Player 1 Wins");
+        }
+        else if(p1 == 2 && p2 == 2 )
+        {
+         System.out.println("Draw");
+        }
+        else if(p1 == 2 && p2 == 3 )
+        {
+         System.out.println("Player 2 Wins");
+        }
+        else if(p1 == 3 && p2 == 1 )
+        {
+         System.out.println("Player 1 Wins");
+        }
+        else if(p1 == 3 && p2 == 2 )
+        {
+         System.out.println("Player 2 Wins");
+        }
+        else if(p1 == 3 && p2 == 3 )
+        {
+         System.out.println("Draw");
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+            
+            
+            
+            
+            
+   
     }
     
     
