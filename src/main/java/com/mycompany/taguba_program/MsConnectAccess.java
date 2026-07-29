@@ -20,7 +20,7 @@ public class MsConnectAccess {
 
     public static Connection conn() {
         try {
-            String url = "jdbc:ucanaccess://” ";
+            String url = "jdbc:ucanaccess://C:\\Users\\CL2-PC\\Documents\\databeje.accdb";
             Connection conn = DriverManager.getConnection(url);
             return conn;
         } catch (SQLException e) {
