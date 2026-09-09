@@ -1,5 +1,7 @@
 
+import java.awt.Component;
 import javax.swing.JOptionPane;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -11,12 +13,19 @@ import javax.swing.JOptionPane;
  * @author CL2-PC
  */
 public class papel extends javax.swing.JPanel {
+    int player1health = 5;
+    int player2health = 5;
+
+    private Component rootPane;
 
     /**
      * Creates new form papel
      */
     public papel() {
         initComponents();
+        txt_health1.setText(".....");
+        txt_health2.setText(".....");
+        
     }
 
     /**
@@ -29,8 +38,13 @@ public class papel extends javax.swing.JPanel {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        txt1 = new javax.swing.JTextField();
-        txt2 = new javax.swing.JTextField();
+        txt_p1 = new javax.swing.JTextField();
+        txt_p2 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txt_health1 = new javax.swing.JButton();
+        txt_health2 = new javax.swing.JButton();
 
         jButton1.setText("FIGHT");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -39,62 +53,208 @@ public class papel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("ROCK");
+
+        jLabel2.setText("PAPEL");
+
+        jLabel3.setText("SCISSOR");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(130, 130, 130)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(198, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel1)
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(35, 35, 35)
+                                .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jButton1))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txt_p2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_p1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(88, 88, 88)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txt_health1)
+                            .addComponent(txt_health2))))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
-                .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_p1)
+                    .addComponent(txt_health1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_p2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_health2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addComponent(jButton1)
-                .addGap(70, 70, 70))
+                .addGap(99, 99, 99))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    int p1= Integer.parseInt(txt1.getText());
-        int p2= Integer.parseInt(txt2.getText());
-        
-        if(p1 == 1 && p2 == 1)
-        {
-            JOptionPane.showMessageDialog(rootPane, "DRAW", "RPS", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(p1 == 1 && p2 == 2)
-        {
-            JOptionPane.showMessageDialog(rootPane, "PLAYER 2 WIN", "RPS", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(p1 == 1 && p2 == 3)
-        {
-            JOptionPane.showMessageDialog(rootPane, "PLAYER 1 WIN", "RPS", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(p1 == 2 && p2 == 1)
-        {
-            JOptionPane.showMessageDialog(rootPane, "PLAYER 1 WIN", "RPS", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(p1 == 2 && p2 == 2)
-        {
-            JOptionPane.showMessageDialog(rootPane, "DRAW", "RPS", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(p1 == 2 && p2 == 3)    // TODO add your handling code here:
+         // TODO add your handling code here:
+         int p1 = Integer.parseInt(txt_p1.getText());
+         int p2 = Integer.parseInt(txt_p2.getText());
+         
+         //DRAW
+         if (p1 == p2){
+         
+             JOptionPane.showMessageDialog(
+             rootPane,
+             "DRAW",
+             "RPS",
+             JOptionPane.INFORMATION_MESSAGE    
+             );
+             
+         } else if (p1 == 1 && p2 ==3 ){
+                 
+             player1health--;
+             
+             JOptionPane.showMessageDialog(
+             rootPane,
+             "PLAYER2 WINS",
+             "RPS",
+             JOptionPane.INFORMATION_MESSAGE
+             );
+             
+             } else if (p1 == 2 && p2 ==1 ){
+                 
+             player1health--;
+             
+             JOptionPane.showMessageDialog(
+             rootPane,
+             "PLAYER1 WINS",
+             "RPS",
+             JOptionPane.INFORMATION_MESSAGE
+             );
+             
+             if (p1 ==2 && p2==2){
+         
+             JOptionPane.showMessageDialog(
+             rootPane,
+             "DRAW",
+             "RPS",
+             JOptionPane.INFORMATION_MESSAGE    
+             );
+             
+             } else if (p1 == 2 && p2 ==3 ){
+                 
+             player1health--;
+             
+             JOptionPane.showMessageDialog(
+             rootPane,
+             "PLAYER2 WINS",
+             "RPS",
+             JOptionPane.INFORMATION_MESSAGE
+             );
+             } else if (p1 == 3 && p2 ==1 ){
+                 
+             player1health--;
+             
+             JOptionPane.showMessageDialog(
+             rootPane,
+             "PLAYER2 WINS",
+             "RPS",
+             JOptionPane.INFORMATION_MESSAGE
+             );
+             
+             } else if (p1 == 3 && p2 ==2 ){
+                 
+             player1health--;
+             
+             JOptionPane.showMessageDialog(
+             rootPane,
+             "PLAYER1 WINS",
+             "RPS",
+             JOptionPane.INFORMATION_MESSAGE
+             );
+             
+              if (p1 ==3 && p2==3){
+         
+             JOptionPane.showMessageDialog(
+             rootPane,
+             "DRAW",
+             "RPS",
+             JOptionPane.INFORMATION_MESSAGE    
+             );
+             
+             txt_health1.setText(getHearts(player1health));
+              txt_health2.setText(getHearts(player2health));
+             
+            if (player1health == 0){
+               
+                JOptionPane.showMessageDialog(
+                rootPane,
+                "PLAYER2 WIN THE GAME",
+                "GAME OVER",
+                 JOptionPane.INFORMATION_MESSAGE  
+                );
+                
+                jButton1.setEnabled(false);
+                
+                 if (player2health == 0){
+               
+                JOptionPane.showMessageDialog(
+                rootPane,
+                "PLAYER2 WIN THE GAME",
+                "GAME OVER",
+                 JOptionPane.INFORMATION_MESSAGE  
+                );
+                
+                jButton1.setEnabled(false);
+        }          
+        {  
+
+
+
+   
+            
+                        
+                    
+                        
+                      
+                
+            
+             
+         
+         
+         
+
+
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JTextField txt1;
-    private javax.swing.JTextField txt2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton txt_health1;
+    private javax.swing.JButton txt_health2;
+    private javax.swing.JTextField txt_p1;
+    private javax.swing.JTextField txt_p2;
     // End of variables declaration//GEN-END:variables
+
+   
 }
