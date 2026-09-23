@@ -29,7 +29,7 @@ public class Taguba_program {
         System.out.println("sum is:"+sum);
         System.out.println("diff is:"+diff);
         System.out.println("prod is:"+prod);
-        System.out.println("quot is"+quot);
+        System.out.println("quot is:"+quot);
         
     }
 }
