@@ -66,65 +66,79 @@ public class FT extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel1.setText("FOOD AND DRINKS");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
 
+        jCheckBox1.setFont(new java.awt.Font("Segoe UI Black", 2, 10)); // NOI18N
         jCheckBox1.setText("BURGER -20");
         jCheckBox1.addActionListener(this::jCheckBox1ActionPerformed);
         getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
+        jCheckBox2.setFont(new java.awt.Font("Segoe UI Black", 1, 10)); // NOI18N
         jCheckBox2.setText("FRIES - 15");
         jCheckBox2.addActionListener(this::jCheckBox2ActionPerformed);
         getContentPane().add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
+        jCheckBox3.setFont(new java.awt.Font("Segoe UI Black", 1, 10)); // NOI18N
         jCheckBox3.setText("SANDWICH - 25");
         jCheckBox3.addActionListener(this::jCheckBox3ActionPerformed);
         getContentPane().add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
+        jCheckBox4.setFont(new java.awt.Font("Segoe UI Black", 1, 10)); // NOI18N
         jCheckBox4.setText("WATER- 15");
         jCheckBox4.addActionListener(this::jCheckBox4ActionPerformed);
-        getContentPane().add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, -1));
+        getContentPane().add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, -1));
 
+        jCheckBox5.setFont(new java.awt.Font("Segoe UI Black", 1, 10)); // NOI18N
         jCheckBox5.setText("LEMON- 20");
         jCheckBox5.addActionListener(this::jCheckBox5ActionPerformed);
-        getContentPane().add(jCheckBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, -1, -1));
+        getContentPane().add(jCheckBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, -1, -1));
 
+        jCheckBox6.setFont(new java.awt.Font("Segoe UI Black", 1, 10)); // NOI18N
         jCheckBox6.setText("COFFEE - 25");
         jCheckBox6.addActionListener(this::jCheckBox6ActionPerformed);
-        getContentPane().add(jCheckBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, -1, -1));
+        getContentPane().add(jCheckBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel2.setText("FOOD");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jLabel3.setText("DRINKS");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, -1, -1));
         getContentPane().add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, -1, -1));
         getContentPane().add(jSpinner2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, -1, -1));
         getContentPane().add(jSpinner3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, -1, -1));
-        getContentPane().add(jSpinner4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
-        getContentPane().add(jSpinner5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
-        getContentPane().add(jSpinner6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, -1, -1));
+        getContentPane().add(jSpinner4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, -1, -1));
+        getContentPane().add(jSpinner5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, -1));
+        getContentPane().add(jSpinner6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
 
         jLabel4.setText("Total Amount :");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
+        jLabel5.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
         jLabel5.setText("Pay :");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
         jLabel6.setText("Change :");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 130, -1));
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 140, -1));
         getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 140, -1));
 
+        jButton1.setForeground(new java.awt.Color(0, 153, 153));
         jButton1.setText("COMPUTE TOTAL");
         jButton1.addActionListener(this::jButton1ActionPerformed);
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
 
+        jButton2.setForeground(new java.awt.Color(0, 153, 153));
         jButton2.setText("COMPUTE CHANGE");
         jButton2.addActionListener(this::jButton2ActionPerformed);
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, -1, -1));
 
+        jButton3.setForeground(new java.awt.Color(0, 153, 153));
         jButton3.setText("ORDER AGAIN");
         jButton3.addActionListener(this::jButton3ActionPerformed);
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, -1, -1));
