@@ -98,6 +98,11 @@ public class Register extends javax.swing.JFrame {
         catch (SQLException e) {
         JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
+         // Open Login form
+    Login login = new Login();
+    login.setVisible(true);
+
     }//GEN-LAST:event_btnregisterActionPerformed
 
     /**
