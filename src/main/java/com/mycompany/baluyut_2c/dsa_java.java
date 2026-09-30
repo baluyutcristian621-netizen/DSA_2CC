@@ -15,7 +15,7 @@ public class dsa_java {
         Scanner input = new Scanner(System.in); //Scanner
         //Basic Output Syntax
         System.out.println("Hello World!");
-        System.out.println("JHARED REUVEN S FACUN");
+        System.out.println("CRISTIAN A BALUYUT");
         System.out.println("Section 2C");    
         // Comment
         System.out.println("Enter a number 1: ");
