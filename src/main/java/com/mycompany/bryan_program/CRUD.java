@@ -18,8 +18,7 @@ public class CRUD extends javax.swing.JFrame {
     loadTable("");
     }
       private static final String DB_URL =
-            "jdbc:sqlite:students.db";   // PALITAN ITO
-
+"jdbc:ucanaccess://C:/Users/ederw/OneDrive/Documents/StudentDB.accdb";
     private int selectedId = -1;
 
     private Connection getConnection() throws SQLException {
@@ -27,44 +26,64 @@ public class CRUD extends javax.swing.JFrame {
     }
 
     private void loadTable(String keyword) {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
 
-        String sql = "SELECT * FROM Students";
-        boolean hasKeyword = keyword != null && !keyword.trim().isEmpty();
-        if (hasKeyword) {
-            sql += " WHERE FirstName LIKE ? OR LastName LIKE ? OR StudentNo LIKE ?";
-        }
+    DefaultTableModel model =
+            (DefaultTableModel) jTable1.getModel();
 
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+    model.setRowCount(0);
 
-            if (hasKeyword) {
-                String k = "%" + keyword.trim() + "%";
-                ps.setString(1, k);
-                ps.setString(2, k);
-                ps.setString(3, k);
-            }
+    String sql = "SELECT * FROM students";
 
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    model.addRow(new Object[]{
-                        rs.getInt("ID"),
-                        rs.getString("StudentNo"),
-                        rs.getString("FirstName"),
-                        rs.getString("LastName"),
-                        rs.getString("Course"),
-                        rs.getString("YearLevel")
-                    });
-                }
-            }
-            if (hasKeyword && model.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "Walang nahanap na student.");
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
+    boolean hasKeyword =
+            keyword != null && !keyword.trim().isEmpty();
+
+    if (hasKeyword) {
+        sql += " WHERE FirstName LIKE ? "
+             + "OR LastName LIKE ?";
     }
+
+    try (Connection con = getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        if (hasKeyword) {
+
+            String k = "%" + keyword.trim() + "%";
+
+            ps.setString(1, k);
+            ps.setString(2, k);
+        }
+
+        try (ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+
+                model.addRow(new Object[]{
+                    rs.getInt("ID"),
+                    rs.getInt("StudentNumber"),
+                    rs.getString("FirstName"),
+                    rs.getString("LastName"),
+                    rs.getString("Course"),
+                    rs.getString("YearLevel")
+                });
+            }
+        }
+
+        if (hasKeyword && model.getRowCount() == 0) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Walang nahanap na student."
+            );
+        }
+
+    } catch (SQLException e) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Database Error: " + e.getMessage()
+        );
+    }
+}
 
     private void clearFields() {
         jTextField2.setText("");
@@ -235,72 +254,226 @@ public class CRUD extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      if (fieldsEmpty()) {
-            JOptionPane.showMessageDialog(this, "Punan muna lahat ng field.");
-            return;
-        }
-        String sql = "INSERT INTO Students (StudentNo, FirstName, LastName, Course, YearLevel) VALUES (?,?,?,?,?)";
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, jTextField2.getText().trim());
-            ps.setString(2, jTextField3.getText().trim());
-            ps.setString(3, jTextField4.getText().trim());
-            ps.setString(4, jTextField5.getText().trim());
-            ps.setString(5, jTextField6.getText().trim());
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Naidagdag na ang student.");
-            clearFields();
-            loadTable("");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
+          if (fieldsEmpty()) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Punan muna lahat ng field."
+        );
+
+        return;
+    }
+
+    int studentNumber;
+
+    try {
+
+        studentNumber =
+                Integer.parseInt(
+                        jTextField2.getText().trim()
+                );
+
+    } catch (NumberFormatException e) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Student Number must be a number."
+        );
+
+        return;
+    }
+
+    String sql =
+            "INSERT INTO students "
+          + "(StudentNumber, FirstName, LastName, Course, YearLevel) "
+          + "VALUES (?, ?, ?, ?, ?)";
+
+    try (Connection con = getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, studentNumber);
+
+        ps.setString(
+                2,
+                jTextField3.getText().trim()
+        );
+
+        ps.setString(
+                3,
+                jTextField4.getText().trim()
+        );
+
+        ps.setString(
+                4,
+                jTextField5.getText().trim()
+        );
+
+        ps.setString(
+                5,
+                jTextField6.getText().trim()
+        );
+
+        ps.executeUpdate();
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Naidagdag na ang student."
+        );
+
+        clearFields();
+        loadTable("");
+
+    } catch (SQLException e) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Database Error: " + e.getMessage()
+        );
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (selectedId == -1) {
-            JOptionPane.showMessageDialog(this, "Pumili muna ng student sa table.");
-            return;
-        }
-        if (fieldsEmpty()) {
-            JOptionPane.showMessageDialog(this, "Punan muna lahat ng field.");
-            return;
-        }
-        String sql = "UPDATE Students SET StudentNo=?, FirstName=?, LastName=?, Course=?, YearLevel=? WHERE ID=?";
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, jTextField2.getText().trim());
-            ps.setString(2, jTextField3.getText().trim());
-            ps.setString(3, jTextField4.getText().trim());
-            ps.setString(4, jTextField5.getText().trim());
-            ps.setString(5, jTextField6.getText().trim());
-            ps.setInt(6, selectedId);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Na-update na.");
-            clearFields();
-            loadTable("");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
+            if (selectedId == -1) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Pumili muna ng student sa table."
+        );
+
+        return;
+    }
+
+    if (fieldsEmpty()) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Punan muna lahat ng field."
+        );
+
+        return;
+    }
+
+    int studentNumber;
+
+    try {
+
+        studentNumber =
+                Integer.parseInt(
+                        jTextField2.getText().trim()
+                );
+
+    } catch (NumberFormatException e) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Student Number must be a number."
+        );
+
+        return;
+    }
+
+    String sql =
+            "UPDATE students SET "
+          + "StudentNumber=?, "
+          + "FirstName=?, "
+          + "LastName=?, "
+          + "Course=?, "
+          + "YearLevel=? "
+          + "WHERE ID=?";
+
+    try (Connection con = getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, studentNumber);
+
+        ps.setString(
+                2,
+                jTextField3.getText().trim()
+        );
+
+        ps.setString(
+                3,
+                jTextField4.getText().trim()
+        );
+
+        ps.setString(
+                4,
+                jTextField5.getText().trim()
+        );
+
+        ps.setString(
+                5,
+                jTextField6.getText().trim()
+        );
+
+        ps.setInt(6, selectedId);
+
+        ps.executeUpdate();
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Na-update na."
+        );
+
+        clearFields();
+        loadTable("");
+
+    } catch (SQLException e) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Database Error: " + e.getMessage()
+        );
+    }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         if (selectedId == -1) {
-            JOptionPane.showMessageDialog(this, "Pumili muna ng student sa table.");
-            return;
-        }
-        int ok = JOptionPane.showConfirmDialog(this, "Sigurado ka bang buburahin ito?",
-                "Confirm", JOptionPane.YES_NO_OPTION);
-        if (ok != JOptionPane.YES_OPTION) return;
+            if (selectedId == -1) {
 
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement("DELETE FROM Students WHERE ID=?")) {
-            ps.setInt(1, selectedId);
-            ps.executeUpdate();
-            clearFields();
-            loadTable("");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
+        JOptionPane.showMessageDialog(
+                this,
+                "Pumili muna ng student sa table."
+        );
+
+        return;
+    }
+
+    int ok = JOptionPane.showConfirmDialog(
+            this,
+            "Sigurado ka bang buburahin ito?",
+            "Confirm",
+            JOptionPane.YES_NO_OPTION
+    );
+
+    if (ok != JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    String sql =
+            "DELETE FROM students WHERE ID=?";
+
+    try (Connection con = getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, selectedId);
+
+        ps.executeUpdate();
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Student deleted successfully."
+        );
+
+        clearFields();
+        loadTable("");
+
+    } catch (SQLException e) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Database Error: " + e.getMessage()
+        );
+    }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -312,14 +485,46 @@ public class CRUD extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int row = jTable1.getSelectedRow();
-        if (row >= 0) {
-            selectedId = Integer.parseInt(String.valueOf(jTable1.getValueAt(row, 0)));
-            jTextField2.setText(String.valueOf(jTable1.getValueAt(row, 1)));
-            jTextField3.setText(String.valueOf(jTable1.getValueAt(row, 2)));
-            jTextField4.setText(String.valueOf(jTable1.getValueAt(row, 3)));
-            jTextField5.setText(String.valueOf(jTable1.getValueAt(row, 4)));
-            jTextField6.setText(String.valueOf(jTable1.getValueAt(row, 5)));
-        }
+
+    if (row >= 0) {
+
+        selectedId =
+                Integer.parseInt(
+                        String.valueOf(
+                                jTable1.getValueAt(row, 0)
+                        )
+                );
+
+        jTextField2.setText(
+                String.valueOf(
+                        jTable1.getValueAt(row, 1)
+                )
+        );
+
+        jTextField3.setText(
+                String.valueOf(
+                        jTable1.getValueAt(row, 2)
+                )
+        );
+
+        jTextField4.setText(
+                String.valueOf(
+                        jTable1.getValueAt(row, 3)
+                )
+        );
+
+        jTextField5.setText(
+                String.valueOf(
+                        jTable1.getValueAt(row, 4)
+                )
+        );
+
+        jTextField6.setText(
+                String.valueOf(
+                        jTable1.getValueAt(row, 5)
+                )
+        );
+    }
     }//GEN-LAST:event_jTable1MouseClicked
 
     public static void main(String args[]) {
