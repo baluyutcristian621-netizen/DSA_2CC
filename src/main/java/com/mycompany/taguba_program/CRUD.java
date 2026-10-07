@@ -107,59 +107,77 @@ public class CRUD extends javax.swing.JFrame {
 
     private void btnsignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsignActionPerformed
      // Get values from the text fields                                            
-    String fname = txtfname.getText().trim();
-    String lname = txtlname.getText().trim();
-    String ageText = txtage.getText().trim();
-    String course = txtcourse.getText().trim();
-    String section = txtsection.getText().trim();
-    String password = new String(txtpassword.getPassword());
-    String username = txtuser.getText().trim();
+  String fname = txtfname.getText().trim();
+String lname = txtlname.getText().trim();
+String ageText = txtage.getText().trim();
+String course = txtcourse.getText().trim();
+String section = txtsection.getText().trim();
+String password = new String(txtpassword.getPassword());
+String username = txtuser.getText().trim();
 
-     // Check if any field is empty
-    if (fname.isEmpty() || lname.isEmpty() || ageText.isEmpty()
-            || course.isEmpty() || section.isEmpty() || password.isEmpty()  || username.isEmpty()) {
+// Role for registered users
+String role = "Student";
 
+// Check if any field is empty
+if (fname.isEmpty() || lname.isEmpty() || ageText.isEmpty()
+        || course.isEmpty() || section.isEmpty()
+        || password.isEmpty() || username.isEmpty()) {
+
+    javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Please fill up all the fields.",
+            "Incomplete Information",
+            javax.swing.JOptionPane.WARNING_MESSAGE
+    );
+    return;
+}
+
+// Validate age
+int age;
+
+try {
+    age = Integer.parseInt(ageText);
+
+    if (age <= 0 || age > 100) {
         javax.swing.JOptionPane.showMessageDialog(
                 this,
-                "Please fill up all the fields.",
-                "Incomplete Information",
-                javax.swing.JOptionPane.WARNING_MESSAGE
-        );
-        return;
-    }
-
-    int age;
-
-    try {
-        age = Integer.parseInt(ageText);
-
-        if (age <= 0 || age > 100) {
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Please enter a valid age.",
-                    "Invalid Age",
-                    javax.swing.JOptionPane.ERROR_MESSAGE
-            );
-            return;
-        }
-
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(
-                this,
-                "Age must be a number.",
+                "Please enter a valid age.",
                 "Invalid Age",
                 javax.swing.JOptionPane.ERROR_MESSAGE
         );
         return;
     }
-    
-     String sql = "INSERT INTO user "
-            + "(Firstname, Lastname, Age, Course, Section, Password, username) "
-            + "VALUES (?, ?, ?, ?, ?, ?)";
 
- 
-  
-     // Registration successful
+} catch (NumberFormatException e) {
+
+    javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Age must be a number.",
+            "Invalid Age",
+            javax.swing.JOptionPane.ERROR_MESSAGE
+    );
+    return;
+}
+
+try {
+
+    String sql = "INSERT INTO user "
+            + "(Firstname, Lastname, Age, Course, Section, Password, username, role) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+    pst = conn.prepareStatement(sql);
+
+    pst.setString(1, fname);
+    pst.setString(2, lname);
+    pst.setInt(3, age);
+    pst.setString(4, course);
+    pst.setString(5, section);
+    pst.setString(6, password);
+    pst.setString(7, username);
+    pst.setString(8, role);
+
+    pst.executeUpdate();
+
     javax.swing.JOptionPane.showMessageDialog(
             this,
             "Registration Successful!\n\n"
@@ -167,10 +185,25 @@ public class CRUD extends javax.swing.JFrame {
             + "\nLast Name: " + lname
             + "\nAge: " + age
             + "\nCourse: " + course
-            + "\nSection: " + section,
+            + "\nSection: " + section
+            + "\nUsername: " + username
+            + "\nRole: " + role,
             "Success",
             javax.swing.JOptionPane.INFORMATION_MESSAGE
     );
+
+} catch (SQLException e) {
+
+    javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Registration failed:\n" + e.getMessage(),
+            "Database Error",
+            javax.swing.JOptionPane.ERROR_MESSAGE
+    );
+}
+
+
+
     
      // Open Login form
     Login login = new Login();

@@ -41,6 +41,7 @@ public class Login extends javax.swing.JFrame {
         txt_username = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         txt_password = new javax.swing.JPasswordField();
+        lbllogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -61,37 +62,83 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, -1, 40));
         getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 117, 120, -1));
 
+        lbllogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbllogin.setText("LOG IN");
+        getContentPane().add(lbllogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        String username = txt_username.getText();
-        char[] pass = txt_password.getPassword();
-        String userpassword = String.valueOf(pass);
-        
-        try{
-        String sqlquery = "Select * From Table1 WHERE username = ? and password = ? ";
-        pst = conn.prepareStatement(sqlquery);
-        pst.setString(1,username);
-        pst.setString(2, userpassword);
-            rs = pst.executeQuery();
-            
-            if(!rs.next())
-            {
-            JOptionPane.showMessageDialog(null,"incorrect input either username or password");
-            
-            }
-            else
-            {
-            JOptionPane.showMessageDialog(null,"login successfull");
-            }
-        }catch(SQLException e){
-            
-            JOptionPane.showMessageDialog(null, e);
+  String username = txt_username.getText().trim();
+char[] pass = txt_password.getPassword();
+String userpassword = String.valueOf(pass);
+
+try {
+
+    String sqlquery = "SELECT id, username, password, role "
+                    + "FROM Table1 "
+                    + "WHERE username = ? AND password = ?";
+
+    pst = conn.prepareStatement(sqlquery);
+    pst.setString(1, username);
+    pst.setString(2, userpassword);
+
+    rs = pst.executeQuery();
+
+    if (rs.next()) {
+
+        String role = rs.getString("role");
+
+        if (role.equalsIgnoreCase("Admin")) {
+
+            JOptionPane.showMessageDialog(
+                null,
+                "Admin Login Successful!"
+            );
+
+            Admin admin = new Admin();
+            admin.setVisible(true);
+          
+
+        } else if (role.equalsIgnoreCase("Student")) {
+
+            JOptionPane.showMessageDialog(
+                null,
+                "Student Login Successful!"
+            );
+
+            Student student = new Student();
+            student.setVisible(true);
+            this.dispose();
+
+        } else {
+
+            JOptionPane.showMessageDialog(
+                null,
+                "Invalid role."
+            );
         }
-        
+
+    } else {
+
+        JOptionPane.showMessageDialog(
+            null,
+            "Incorrect username or password."
+        );
+    }
+
+} catch (SQLException e) {
+
+    JOptionPane.showMessageDialog(
+        null,
+        "Database Error: " + e.getMessage()
+    );
+}
+
+
         
                      
 
@@ -139,9 +186,10 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lbllogin;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
 
-}
 
+}
