@@ -19,6 +19,7 @@ public class Admin extends javax.swing.JFrame {
     PreparedStatement pst;
     ResultSet rs;
 
+    private int selectedUserId = -1;  
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Admin.class.getName());
 
@@ -26,7 +27,7 @@ public class Admin extends javax.swing.JFrame {
      * Creates new form admin
      */
     public Admin() {
-        initComponents();
+        initComponents();  
         
     }
     
@@ -68,7 +69,15 @@ public class Admin extends javax.swing.JFrame {
                 "Database Error",
                 javax.swing.JOptionPane.ERROR_MESSAGE
         );
-    }
+    }  
+}
+   
+
+private Object[] getColumnNames() {
+    return new Object[]{
+        "ID", "First name", "Last name",
+        "Age", "Course", "Section", "Username"
+    };
 }
 
 
@@ -87,15 +96,20 @@ public class Admin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblusers = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        btnlogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
 
+        btnedit.setBackground(new java.awt.Color(0, 153, 153));
         btnedit.setText("Edit");
+        btnedit.addActionListener(this::btneditActionPerformed);
         getContentPane().add(btnedit, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, -1, -1));
 
+        btnupdate.setBackground(new java.awt.Color(0, 153, 102));
         btnupdate.setText("Update");
+        btnupdate.addActionListener(this::btnupdateActionPerformed);
         getContentPane().add(btnupdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 340, -1, -1));
 
         tblusers.setModel(new javax.swing.table.DefaultTableModel(
@@ -117,8 +131,140 @@ public class Admin extends javax.swing.JFrame {
         jLabel2.setText("ADMIN DASHBOARD");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, -1, -1));
 
+        btnlogout.setBackground(new java.awt.Color(204, 204, 204));
+        btnlogout.setText("Logout");
+        btnlogout.addActionListener(this::btnlogoutActionPerformed);
+        getContentPane().add(btnlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 80, 20));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
+        // TODO add your handling code here:
+        int row = tblusers.getSelectedRow();
+
+    if (row == -1) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Please select a user first."
+        );
+        return;
+    }
+
+        int selecteduserId = Integer.parseInt(
+                tblusers.getValueAt(row, 0).toString()
+        );
+
+    // Allow editing of table cells
+    tblusers.setEnabled(true);
+
+    JOptionPane.showMessageDialog(
+        this,
+        "You can now edit. "
+        + " click Update to save."
+    );
+    }//GEN-LAST:event_btneditActionPerformed
+
+    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
+        // TODO add your handling code here:
+         int row = tblusers.getSelectedRow();
+
+    if (row == -1) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Please select the user you want to update."
+        );
+        return;
+    }
+
+    // Finish editing the current table cell
+    if (tblusers.isEditing()) {
+        tblusers.getCellEditor().stopCellEditing();
+    }
+
+    // Get the ID from the selected row
+    int id;
+
+    try {
+        id = Integer.parseInt(
+            tblusers.getValueAt(row, 0).toString()
+        );
+
+        String firstname = tblusers.getValueAt(row, 1).toString();
+        String lastname = tblusers.getValueAt(row, 2).toString();
+        int age = Integer.parseInt(
+            tblusers.getValueAt(row, 3).toString()
+        );
+        String course = tblusers.getValueAt(row, 4).toString();
+        String section = tblusers.getValueAt(row, 5).toString();
+        String username = tblusers.getValueAt(row, 6).toString();
+
+        String sql = "UPDATE user SET Firstname=?, Lastname=?, "
+                   + "Age=?, Course=?, Section=?, username=? "
+                   + "WHERE id=?";
+
+        try (PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setString(1, firstname);
+            pst.setString(2, lastname);
+            pst.setInt(3, age);
+            pst.setString(4, course);
+            pst.setString(5, section);
+            pst.setString(6, username);
+            pst.setInt(7, id);
+
+            int result = pst.executeUpdate();
+
+            if (result > 0) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "User updated successfully!"
+                );
+
+                loadUsers();
+                selectedUserId = -1;
+            } else {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "No matching user found."
+                );
+            }
+        }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Please enter a valid ID and age."
+        );
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Error updating user: " + e.getMessage(),
+            "Database Error",
+            JOptionPane.ERROR_MESSAGE
+        );
+    }
+    }//GEN-LAST:event_btnupdateActionPerformed
+
+    private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
+        // TODO add your handling code here:
+         int confirm = JOptionPane.showConfirmDialog(
+        this,
+        "Have you saved all your changes? Do you want to log out?",
+        "Confirm Logout",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE
+    );
+
+    if (confirm == JOptionPane.YES_OPTION) {
+
+        // Return to the Login form
+        Login login = new Login();
+        login.setVisible(true);
+
+        // Close the Admin Dashboard
+        this.dispose();
+    }
+    }//GEN-LAST:event_btnlogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,6 +293,7 @@ public class Admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnedit;
+    private javax.swing.JButton btnlogout;
     private javax.swing.JButton btnupdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -53,6 +53,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 120, -1, -1));
         getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 73, 120, -1));
 
+        jButton1.setBackground(new java.awt.Color(0, 204, 255));
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

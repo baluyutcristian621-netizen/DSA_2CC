@@ -3,12 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.taguba_program;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author CL2-PC
  */
 public class Student extends javax.swing.JFrame {
+    
+Connection conn;
+PreparedStatement pst;
+ResultSet rs;
+
+    private String loggedInUsername;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Student.class.getName());
 
@@ -17,7 +28,50 @@ public class Student extends javax.swing.JFrame {
      */
     public Student() {
         initComponents();
+        
+         loadStudentRecord();
+        
     }
+     private void loadStudentRecord(){
+     
+     String sql = "SELECT id, Firstname, Lastname, Age, "
+                   + "Course, Section, username "
+                   + "FROM user WHERE username = ?";
+
+        try (PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, loggedInUsername);
+
+            try (ResultSet rs = pst.executeQuery()) {
+
+                javax.swing.table.DefaultTableModel model =
+                    (javax.swing.table.DefaultTableModel) tblstudent.getModel();
+
+                model.setRowCount(0);
+
+                while (rs.next()) {
+                    model.addRow(new Object[]{
+                        rs.getInt("id"),
+                        rs.getString("Firstname"),
+                        rs.getString("Lastname"),
+                        rs.getInt("Age"),
+                        rs.getString("Course"),
+                        rs.getString("Section"),
+                        rs.getString("username")
+                    });
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Error loading student record: " + e.getMessage(),
+                "Database Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }   
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,21 +82,59 @@ public class Student extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblstudent = new javax.swing.JTable();
+        lblstudash = new javax.swing.JLabel();
+        btnlogout = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 448, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblstudent.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "First Name", "Last Name", "Age", "Course", "Section"
+            }
+        ));
+        jScrollPane1.setViewportView(tblstudent);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, 184));
+
+        lblstudash.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblstudash.setText("STUDENT DASHBOARD");
+        getContentPane().add(lblstudash, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
+
+        btnlogout.setBackground(new java.awt.Color(153, 153, 153));
+        btnlogout.setText("logout");
+        btnlogout.addActionListener(this::btnlogoutActionPerformed);
+        getContentPane().add(btnlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
+        // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(
+        this,
+        "Are you sure you want to log out?",
+        "Confirm Logout",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE
+    );
+
+    if (confirm == JOptionPane.YES_OPTION) {
+
+        Login login = new Login();
+        login.setVisible(true);
+
+        this.dispose();
+    }
+    }//GEN-LAST:event_btnlogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +162,9 @@ public class Student extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnlogout;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblstudash;
+    private javax.swing.JTable tblstudent;
     // End of variables declaration//GEN-END:variables
 }

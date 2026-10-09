@@ -55,6 +55,7 @@ public class CRUD extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 102, 102));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(txtfname, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 180, -1));
         getContentPane().add(txtlname, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 180, -1));
