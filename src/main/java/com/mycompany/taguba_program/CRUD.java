@@ -14,7 +14,7 @@ import java.sql.DriverManager;
  * @author CL2-PC
  */
 public class CRUD extends javax.swing.JFrame {
-     Connection conn;
+    Connection conn;
     PreparedStatement pst;
     ResultSet rs;
     
@@ -24,7 +24,7 @@ public class CRUD extends javax.swing.JFrame {
      */
     public CRUD() {
         initComponents();
-        
+     
          conn = MsConnectAccess.conn();
     }
 
@@ -37,6 +37,7 @@ public class CRUD extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         txtfname = new javax.swing.JTextField();
         txtlname = new javax.swing.JTextField();
         txtcourse = new javax.swing.JTextField();
@@ -53,154 +54,240 @@ public class CRUD extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtuser = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        lblcreate = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+
+        jPanel1.setBackground(new java.awt.Color(245, 245, 255));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(txtfname, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 180, -1));
-        getContentPane().add(txtlname, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 180, -1));
-        getContentPane().add(txtcourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 180, -1));
+        getContentPane().add(txtfname, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 180, -1));
+        getContentPane().add(txtlname, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 180, -1));
+        getContentPane().add(txtcourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 180, -1));
 
         lblfname.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblfname.setForeground(new java.awt.Color(25, 32, 77));
         lblfname.setText("First name:");
-        getContentPane().add(lblfname, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
+        getContentPane().add(lblfname, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
 
         lbllname.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbllname.setForeground(new java.awt.Color(25, 32, 77));
         lbllname.setText("Last name:");
-        getContentPane().add(lbllname, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
+        getContentPane().add(lbllname, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
 
         lblcourse.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblcourse.setForeground(new java.awt.Color(25, 32, 77));
         lblcourse.setText("Course:");
-        getContentPane().add(lblcourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, 20));
+        getContentPane().add(lblcourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, 20));
 
-        btnsign.setBackground(new java.awt.Color(0, 204, 255));
+        btnsign.setBackground(new java.awt.Color(95, 90, 175));
         btnsign.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnsign.setForeground(new java.awt.Color(255, 255, 255));
         btnsign.setText("Sign Up");
+        btnsign.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnsign.addActionListener(this::btnsignActionPerformed);
-        getContentPane().add(btnsign, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 90, 40));
-        getContentPane().add(txtage, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 180, -1));
+        getContentPane().add(btnsign, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 100, 30));
+        getContentPane().add(txtage, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 180, -1));
 
         lblage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblage.setForeground(new java.awt.Color(25, 32, 77));
         lblage.setText("Age:");
-        getContentPane().add(lblage, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
+        getContentPane().add(lblage, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
         lblsection.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblsection.setForeground(new java.awt.Color(25, 32, 77));
         lblsection.setText("Section:");
-        getContentPane().add(lblsection, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
-        getContentPane().add(txtsection, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 180, -1));
+        getContentPane().add(lblsection, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
+        getContentPane().add(txtsection, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 180, -1));
 
         lblfillup.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblfillup.setText("FILL UP");
-        getContentPane().add(lblfillup, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
-        getContentPane().add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 180, -1));
+        lblfillup.setForeground(new java.awt.Color(25, 32, 77));
+        lblfillup.setText("STUDENT REGISTRATION");
+        getContentPane().add(lblfillup, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, -1));
+        getContentPane().add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 180, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(25, 32, 77));
         jLabel1.setText("Password:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, -1, -1));
         getContentPane().add(txtuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 180, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(25, 32, 77));
         jLabel2.setText("User:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
+
+        lblcreate.setForeground(new java.awt.Color(204, 204, 204));
+        lblcreate.setText("Create your student account");
+        getContentPane().add(lblcreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(245, 245, 255));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnsignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsignActionPerformed
-     // Get values from the text fields                                            
-  String fname = txtfname.getText().trim();
-String lname = txtlname.getText().trim();
-String ageText = txtage.getText().trim();
-String course = txtcourse.getText().trim();
-String section = txtsection.getText().trim();
-String password = new String(txtpassword.getPassword());
-String username = txtuser.getText().trim();
+    // Get values from the text fields
+    // trim() removes extra spaces at the beginning and end
+    String fname = txtfname.getText().trim();
+    String lname = txtlname.getText().trim();
+    String ageText = txtage.getText().trim();
+    String course = txtcourse.getText().trim();
+    String section = txtsection.getText().trim();
 
-// Role for registered users
-String role = "Student";
+    // Get the password entered by the user
+    String password = new String(txtpassword.getPassword());
 
-// Check if any field is empty
-if (fname.isEmpty() || lname.isEmpty() || ageText.isEmpty()
-        || course.isEmpty() || section.isEmpty()
-        || password.isEmpty() || username.isEmpty()) {
+    // Get the username entered by the user
+    String username = txtuser.getText().trim();
 
-    javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Please fill up all the fields.",
-            "Incomplete Information",
-            javax.swing.JOptionPane.WARNING_MESSAGE
-    );
-    return;
-}
+    // Automatically assign the Student role to registered users
+    String role = "Student";
 
-// Validate age
-int age;
+    // Check if any field is empty
+    if (fname.isEmpty() || lname.isEmpty() || ageText.isEmpty()
+            || course.isEmpty() || section.isEmpty()
+            || password.isEmpty() || username.isEmpty()) {
 
-try {
-    age = Integer.parseInt(ageText);
-
-    if (age <= 0 || age > 100) {
         javax.swing.JOptionPane.showMessageDialog(
                 this,
-                "Please enter a valid age.",
-                "Invalid Age",
-                javax.swing.JOptionPane.ERROR_MESSAGE
+                "Please fill up all the fields.",
+                "Incomplete Information",
+                javax.swing.JOptionPane.WARNING_MESSAGE
         );
+
+        // Stop registration if any field is empty
         return;
     }
 
-} catch (NumberFormatException e) {
+    // Validate the age entered by the user
+    int age;
 
-    javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Age must be a number.",
-            "Invalid Age",
-            javax.swing.JOptionPane.ERROR_MESSAGE
-    );
-    return;
-}
+    try {
+        // Convert the age from String to int
+        age = Integer.parseInt(ageText);
 
-try {
+        // Check whether the age is within the allowed range
+        if (age <= 0 || age > 100) {
 
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Please enter a valid age.",
+                    "Invalid Age",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+
+            // Stop registration if the age is invalid
+            return;
+        }
+
+    } catch (NumberFormatException e) {
+
+        // Display an error if the age is not a number
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Age must be a number.",
+                "Invalid Age",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+
+        return;
+    }
+
+    // Check whether the username already exists in the database
+    String checkSql = "SELECT username FROM user WHERE username = ?";
+
+    try (java.sql.PreparedStatement checkPst =
+            conn.prepareStatement(checkSql)) {
+
+        // Replace the question mark with the entered username
+        checkPst.setString(1, username);
+
+        // Execute the query to search for the username
+        try (java.sql.ResultSet rs = checkPst.executeQuery()) {
+
+            // If a matching username is found, stop registration
+            if (rs.next()) {
+
+                javax.swing.JOptionPane.showMessageDialog(
+                        this,
+                        "Username already exists. Please choose another.",
+                        "Duplicate Username",
+                        javax.swing.JOptionPane.WARNING_MESSAGE
+                );
+
+                // Stop the method so the duplicate account is not inserted
+                return;
+            }
+        }
+
+    } catch (SQLException e) {
+
+        // Display an error if the username check fails
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Error checking username:\n" + e.getMessage(),
+                "Database Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+
+        // Stop registration if the database check fails
+        return;
+    }
+
+    // If the username does not exist, save the new student
     String sql = "INSERT INTO user "
             + "(Firstname, Lastname, Age, Course, Section, Password, username, role) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-    pst = conn.prepareStatement(sql);
+    try (java.sql.PreparedStatement pst = conn.prepareStatement(sql)) {
 
-    pst.setString(1, fname);
-    pst.setString(2, lname);
-    pst.setInt(3, age);
-    pst.setString(4, course);
-    pst.setString(5, section);
-    pst.setString(6, password);
-    pst.setString(7, username);
-    pst.setString(8, role);
+        // Assign the values to their corresponding SQL placeholders
+        pst.setString(1, fname);
+        pst.setString(2, lname);
+        pst.setInt(3, age);
+        pst.setString(4, course);
+        pst.setString(5, section);
+        pst.setString(6, password);
+        pst.setString(7, username);
+        pst.setString(8, role);
 
-    pst.executeUpdate();
+        // Execute the INSERT statement to save the student
+        pst.executeUpdate();
 
-    javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Registration Successful!\n\n"
-            + "First Name: " + fname
-            + "\nLast Name: " + lname
-            + "\nAge: " + age
-            + "\nCourse: " + course
-            + "\nSection: " + section
-            + "\nUsername: " + username
-            + "\nRole: " + role,
-            "Success",
-            javax.swing.JOptionPane.INFORMATION_MESSAGE
-    );
+        // Display a message when registration is successful
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Registration Successful!\n\n"
+                + "First Name: " + fname
+                + "\nLast Name: " + lname
+                + "\nAge: " + age
+                + "\nCourse: " + course
+                + "\nSection: " + section
+                + "\nUsername: " + username
+                + "\nRole: " + role,
+                "Success",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE
+        );
 
-} catch (SQLException e) {
+        // Open the Login form only after successful registration
+        Login login = new Login();
+        login.setVisible(true);
 
-    javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Registration failed:\n" + e.getMessage(),
-            "Database Error",
-            javax.swing.JOptionPane.ERROR_MESSAGE
-    );
+        // Close the registration form
+        this.dispose();
+
+    } catch (SQLException e) {
+
+        // Display an error if saving the account fails
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Registration failed:\n" + e.getMessage(),
+                "Database Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+        );
 }
 
 
@@ -236,8 +323,11 @@ try {
     private javax.swing.JButton btnsign;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblage;
     private javax.swing.JLabel lblcourse;
+    private javax.swing.JLabel lblcreate;
     private javax.swing.JLabel lblfillup;
     private javax.swing.JLabel lblfname;
     private javax.swing.JLabel lbllname;

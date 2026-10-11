@@ -28,9 +28,8 @@ ResultSet rs;
      */
     public Student() {
         initComponents();
-        
-         loadStudentRecord();
-        
+         setLocationRelativeTo(null);
+             
     }
      private void loadStudentRecord(){
      
@@ -86,8 +85,10 @@ ResultSet rs;
         tblstudent = new javax.swing.JTable();
         lblstudash = new javax.swing.JLabel();
         btnlogout = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(95, 90, 175));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblstudent.setModel(new javax.swing.table.DefaultTableModel(
@@ -106,13 +107,18 @@ ResultSet rs;
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, 184));
 
         lblstudash.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblstudash.setForeground(new java.awt.Color(25, 32, 77));
         lblstudash.setText("STUDENT DASHBOARD");
         getContentPane().add(lblstudash, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
 
-        btnlogout.setBackground(new java.awt.Color(153, 153, 153));
+        btnlogout.setBackground(new java.awt.Color(95, 90, 175));
+        btnlogout.setForeground(new java.awt.Color(255, 255, 255));
         btnlogout.setText("logout");
         btnlogout.addActionListener(this::btnlogoutActionPerformed);
         getContentPane().add(btnlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(245, 247, 255));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -140,6 +146,23 @@ ResultSet rs;
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
+         try {
+        for (javax.swing.UIManager.LookAndFeelInfo info
+                : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
+            }
+        }
+    } catch (Exception ex) {
+        java.util.logging.Logger.getLogger(Student.class.getName())
+                .log(java.util.logging.Level.SEVERE, null, ex);
+    }
+
+    java.awt.EventQueue.invokeLater(() -> {
+        new Student().setVisible(true);
+    });
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -163,6 +186,7 @@ ResultSet rs;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnlogout;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblstudash;
     private javax.swing.JTable tblstudent;

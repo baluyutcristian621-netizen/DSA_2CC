@@ -9,6 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author CL2-PC
@@ -18,22 +27,10 @@ public class Admin extends javax.swing.JFrame {
     Connection conn;
     PreparedStatement pst;
     ResultSet rs;
-
-    private int selectedUserId = -1;  
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Admin.class.getName());
-
-    /**
-     * Creates new form admin
-     */
-    public Admin() {
-        initComponents();  
-        
-    }
-    
-    private void loadUsers() {
-
-    try {
+    public void loadUsers() {
+    // Your JTable refresh code goes here
+     try {
 
         String sql = "SELECT id, Firstname, Lastname, Age, Course, Section, username "
                    + "FROM user";
@@ -71,6 +68,46 @@ public class Admin extends javax.swing.JFrame {
         );
     }  
 }
+
+    private int selectedUserId = -1;  
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Admin.class.getName());
+
+    /**
+     * Creates new form admin
+     */
+    public Admin() {
+        initComponents(); 
+        
+        conn = MsConnectAccess.conn();
+        
+         lbltotalstudent.setText(
+        "Total Students: " + tblusers.getRowCount()
+        );
+               
+          
+       // Make the table editable except for the ID column
+    DefaultTableModel model = new DefaultTableModel(
+        new Object[][] {},
+        new String[] {
+            "ID", "First name", "Last name",
+            "Age", "Course", "Section", "Username"
+        }
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return column != 0;
+        }
+    };
+
+    // Apply the editable model to the table
+    tblusers.setModel(model);
+
+    // TODO: Initialize conn before loading users.
+    // Call loadUsers() after your database connection is ready. 
+      
+    }  
+    
    
 
 private Object[] getColumnNames() {
@@ -90,160 +127,91 @@ private Object[] getColumnNames() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnedit = new javax.swing.JButton();
-        btnupdate = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblusers = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         btnlogout = new javax.swing.JButton();
+        lbltotalstudent = new javax.swing.JLabel();
+        btnaddstudent = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        btnupdate1 = new javax.swing.JButton();
+        btndelete = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(245, 245, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
 
-        btnedit.setBackground(new java.awt.Color(0, 153, 153));
-        btnedit.setText("Edit");
-        btnedit.addActionListener(this::btneditActionPerformed);
-        getContentPane().add(btnedit, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, -1, -1));
-
-        btnupdate.setBackground(new java.awt.Color(0, 153, 102));
-        btnupdate.setText("Update");
-        btnupdate.addActionListener(this::btnupdateActionPerformed);
-        getContentPane().add(btnupdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 340, -1, -1));
-
+        tblusers.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(220, 214, 255), null));
+        tblusers.setForeground(new java.awt.Color(37, 37, 37));
         tblusers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "First name", "Last name", "Age", "Course", "Section", "Username"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblusers);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 470, 260));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 500, 260));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setText("ADMIN DASHBOARD");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, -1, -1));
-
-        btnlogout.setBackground(new java.awt.Color(204, 204, 204));
+        btnlogout.setBackground(new java.awt.Color(95, 90, 175));
+        btnlogout.setForeground(new java.awt.Color(255, 255, 255));
         btnlogout.setText("Logout");
         btnlogout.addActionListener(this::btnlogoutActionPerformed);
         getContentPane().add(btnlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 80, 20));
 
+        lbltotalstudent.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbltotalstudent.setForeground(new java.awt.Color(95, 90, 175));
+        lbltotalstudent.setText("Total Student:");
+        getContentPane().add(lbltotalstudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 130, 10));
+
+        btnaddstudent.setBackground(new java.awt.Color(95, 90, 175));
+        btnaddstudent.setForeground(new java.awt.Color(255, 255, 255));
+        btnaddstudent.setText("Add Student");
+        btnaddstudent.addActionListener(this::btnaddstudentActionPerformed);
+        getContentPane().add(btnaddstudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, -1, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(25, 32, 77));
+        jLabel2.setText("ADMIN DASHBOARD");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
+
+        btnupdate1.setBackground(new java.awt.Color(95, 90, 175));
+        btnupdate1.setForeground(new java.awt.Color(255, 255, 255));
+        btnupdate1.setText("Update");
+        btnupdate1.addActionListener(this::btnupdate1ActionPerformed);
+        getContentPane().add(btnupdate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, -1, 30));
+
+        btndelete.setBackground(new java.awt.Color(95, 90, 175));
+        btndelete.setForeground(new java.awt.Color(255, 255, 255));
+        btndelete.setText("Delete");
+        btndelete.addActionListener(this::btndeleteActionPerformed);
+        getContentPane().add(btndelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, -1, 30));
+
+        jPanel2.setBackground(new java.awt.Color(245, 245, 255));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 430));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
-        // TODO add your handling code here:
-        int row = tblusers.getSelectedRow();
-
-    if (row == -1) {
-        JOptionPane.showMessageDialog(
-            this,
-            "Please select a user first."
-        );
-        return;
-    }
-
-        int selecteduserId = Integer.parseInt(
-                tblusers.getValueAt(row, 0).toString()
-        );
-
-    // Allow editing of table cells
-    tblusers.setEnabled(true);
-
-    JOptionPane.showMessageDialog(
-        this,
-        "You can now edit. "
-        + " click Update to save."
-    );
-    }//GEN-LAST:event_btneditActionPerformed
-
-    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
-        // TODO add your handling code here:
-         int row = tblusers.getSelectedRow();
-
-    if (row == -1) {
-        JOptionPane.showMessageDialog(
-            this,
-            "Please select the user you want to update."
-        );
-        return;
-    }
-
-    // Finish editing the current table cell
-    if (tblusers.isEditing()) {
-        tblusers.getCellEditor().stopCellEditing();
-    }
-
-    // Get the ID from the selected row
-    int id;
-
-    try {
-        id = Integer.parseInt(
-            tblusers.getValueAt(row, 0).toString()
-        );
-
-        String firstname = tblusers.getValueAt(row, 1).toString();
-        String lastname = tblusers.getValueAt(row, 2).toString();
-        int age = Integer.parseInt(
-            tblusers.getValueAt(row, 3).toString()
-        );
-        String course = tblusers.getValueAt(row, 4).toString();
-        String section = tblusers.getValueAt(row, 5).toString();
-        String username = tblusers.getValueAt(row, 6).toString();
-
-        String sql = "UPDATE user SET Firstname=?, Lastname=?, "
-                   + "Age=?, Course=?, Section=?, username=? "
-                   + "WHERE id=?";
-
-        try (PreparedStatement pst = conn.prepareStatement(sql)) {
-            pst.setString(1, firstname);
-            pst.setString(2, lastname);
-            pst.setInt(3, age);
-            pst.setString(4, course);
-            pst.setString(5, section);
-            pst.setString(6, username);
-            pst.setInt(7, id);
-
-            int result = pst.executeUpdate();
-
-            if (result > 0) {
-                JOptionPane.showMessageDialog(
-                    this,
-                    "User updated successfully!"
-                );
-
-                loadUsers();
-                selectedUserId = -1;
-            } else {
-                JOptionPane.showMessageDialog(
-                    this,
-                    "No matching user found."
-                );
-            }
-        }
-
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(
-            this,
-            "Please enter a valid ID and age."
-        );
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(
-            this,
-            "Error updating user: " + e.getMessage(),
-            "Database Error",
-            JOptionPane.ERROR_MESSAGE
-        );
-    }
-    }//GEN-LAST:event_btnupdateActionPerformed
 
     private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
         // TODO add your handling code here:
@@ -265,6 +233,200 @@ private Object[] getColumnNames() {
         this.dispose();
     }
     }//GEN-LAST:event_btnlogoutActionPerformed
+
+    private void btnaddstudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddstudentActionPerformed
+        // Finish editing the current cell first
+     Addstudent form = new Addstudent(this);
+    form.setLocationRelativeTo(this);
+    form.setVisible(true);
+    
+        if (tblusers.isEditing()) {
+            if (!tblusers.getCellEditor().stopCellEditing()) {
+                return;
+            }
+        }
+
+        // Get the selected row
+        int row = tblusers.getSelectedRow();
+
+        if (row == -1) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Please select the user you want to update."
+            );
+            return;
+        }
+
+        try {
+            // Get the ID of the selected user
+            int id = Integer.parseInt(
+                tblusers.getValueAt(row, 0).toString()
+            );
+
+            // Read the edited values
+            String firstname =
+            tblusers.getValueAt(row, 1).toString().trim();
+
+            String lastname =
+            tblusers.getValueAt(row, 2).toString().trim();
+
+            String ageText =
+            tblusers.getValueAt(row, 3).toString().trim();
+
+            String course =
+            tblusers.getValueAt(row, 4).toString().trim();
+
+            String section =
+            tblusers.getValueAt(row, 5).toString().trim();
+
+            String username =
+            tblusers.getValueAt(row, 6).toString().trim();
+
+            // Check for empty fields
+            if (firstname.isEmpty() || lastname.isEmpty()
+                || ageText.isEmpty() || course.isEmpty()
+                || section.isEmpty() || username.isEmpty()) {
+
+                JOptionPane.showMessageDialog(
+                    this, "Please fill in all fields."
+                );
+                return;
+            }
+
+            // Validate age
+            int age = Integer.parseInt(ageText);
+
+            if (age <= 0 || age > 100) {
+                JOptionPane.showMessageDialog(
+                    this, "Please enter a valid age."
+                );
+                return;
+            }
+
+            // Update the selected user's database record
+            String sql = "UPDATE user SET Firstname=?, Lastname=?, "
+            + "Age=?, Course=?, Section=?, username=? "
+            + "WHERE id=?";
+
+            try (PreparedStatement pst = conn.prepareStatement(sql)) {
+
+                pst.setString(1, firstname);
+                pst.setString(2, lastname);
+                pst.setInt(3, age);
+                pst.setString(4, course);
+                pst.setString(5, section);
+                pst.setString(6, username);
+                pst.setInt(7, id);
+
+                int result = pst.executeUpdate();
+
+                if (result > 0) {
+                    JOptionPane.showMessageDialog(
+                        this, "User updated successfully!"
+                    );
+
+                    // Refresh the table using the latest database records
+                    loadUsers();
+
+                } else {
+                    JOptionPane.showMessageDialog(
+                        this, "No matching user found."
+                    );
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Age must be a valid number.",
+                "Invalid Input",
+                JOptionPane.ERROR_MESSAGE
+            );
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Error updating user: " + e.getMessage(),
+                "Database Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_btnaddstudentActionPerformed
+
+    private void btnupdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdate1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnupdate1ActionPerformed
+
+    private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
+   
+    // Check if a student is selected
+    int selectedRow = tblusers.getSelectedRow();
+
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Please select a student to delete.",
+            "No Student Selected",
+            JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+
+    // Get the selected student's ID from column 0
+    int modelRow = tblusers.convertRowIndexToModel(selectedRow);
+    int studentId = Integer.parseInt(
+        tblusers.getModel().getValueAt(modelRow, 0).toString()
+    );
+
+    // Confirm deletion
+    int confirm = JOptionPane.showConfirmDialog(
+        this,
+        "Are you sure you want to delete this student?\n"
+        + "This action cannot be undone.",
+        "Confirm Delete",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.WARNING_MESSAGE
+    );
+
+    if (confirm != JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    // Delete the student from the database
+    String sql = "DELETE FROM user WHERE id = ?";
+
+    try (PreparedStatement pst = conn.prepareStatement(sql)) {
+        pst.setInt(1, studentId);
+
+        int deleted = pst.executeUpdate();
+
+        if (deleted > 0) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Student deleted successfully!"
+            );
+
+            loadUsers(); // Refresh the JTable
+            lbltotalstudent.setText(
+                "Total Students: " + tblusers.getRowCount()
+            );
+        } else {
+            JOptionPane.showMessageDialog(
+                this,
+                "Student record was not found."
+            );
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Error deleting student: " + e.getMessage(),
+            "Database Error",
+            JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    }//GEN-LAST:event_btndeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,12 +454,16 @@ private Object[] getColumnNames() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnedit;
+    private javax.swing.JButton btnaddstudent;
+    private javax.swing.JButton btndelete;
     private javax.swing.JButton btnlogout;
-    private javax.swing.JButton btnupdate;
+    private javax.swing.JButton btnupdate1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbltotalstudent;
     private javax.swing.JTable tblusers;
     // End of variables declaration//GEN-END:variables
 }

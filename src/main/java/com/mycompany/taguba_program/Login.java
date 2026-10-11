@@ -38,34 +38,47 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txt_username = new javax.swing.JTextField();
+        txtusername = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        txt_password = new javax.swing.JPasswordField();
+        txtpassword = new javax.swing.JPasswordField();
         lbllogin = new javax.swing.JLabel();
+        lblwelcome = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("username:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 76, -1, -1));
+        jLabel1.setForeground(new java.awt.Color(25, 32, 77));
+        jLabel1.setText("Username:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
 
-        jLabel2.setText("password:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 120, -1, -1));
-        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 73, 120, -1));
+        jLabel2.setForeground(new java.awt.Color(25, 32, 77));
+        jLabel2.setText("Password:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
+        getContentPane().add(txtusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 140, -1));
 
-        jButton1.setBackground(new java.awt.Color(0, 204, 255));
-        jButton1.setText("Login");
+        jButton1.setBackground(new java.awt.Color(95, 90, 175));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Login ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, -1, 40));
-        getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 117, 120, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 90, 30));
+        getContentPane().add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 140, -1));
 
-        lbllogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbllogin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbllogin.setForeground(new java.awt.Color(25, 32, 77));
         lbllogin.setText("LOG IN");
-        getContentPane().add(lbllogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, -1, -1));
+        getContentPane().add(lbllogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
+
+        lblwelcome.setForeground(new java.awt.Color(204, 188, 232));
+        lblwelcome.setText("Welcome back! Please enter your acoount.");
+        getContentPane().add(lblwelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(245, 245, 255));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 320));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -73,72 +86,84 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-  String username = txt_username.getText().trim();
-char[] pass = txt_password.getPassword();
-String userpassword = String.valueOf(pass);
+    String username = txtusername.getText().trim();
+    String password = new String(txtpassword.getPassword());
 
-try {
-
-    String sqlquery = "SELECT id, username, password, role "
-                    + "FROM Table1 "
-                    + "WHERE username = ? AND password = ?";
-
-    pst = conn.prepareStatement(sqlquery);
-    pst.setString(1, username);
-    pst.setString(2, userpassword);
-
-    rs = pst.executeQuery();
-
-    if (rs.next()) {
-
-        String role = rs.getString("role");
-
-        if (role.equalsIgnoreCase("Admin")) {
-
-            JOptionPane.showMessageDialog(
-                null,
-                "Admin Login Successful!"
-            );
-
-            Admin admin = new Admin();
-            admin.setVisible(true);
-          
-
-        } else if (role.equalsIgnoreCase("Student")) {
-
-            JOptionPane.showMessageDialog(
-                null,
-                "Student Login Successful!"
-            );
-
-            Student student = new Student();
-            student.setVisible(true);
-            this.dispose();
-
-        } else {
-
-            JOptionPane.showMessageDialog(
-                null,
-                "Invalid role."
-            );
-        }
-
-    } else {
-
-        JOptionPane.showMessageDialog(
-            null,
-            "Incorrect username or password."
+    // Check for empty fields
+    if (username.isEmpty() || password.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Please enter your username and password.",
+                "Missing Information",
+                javax.swing.JOptionPane.WARNING_MESSAGE
         );
+        return;
     }
 
-} catch (SQLException e) {
+    String sql = "SELECT username, Password, role "
+               + "FROM user WHERE username = ? AND Password = ?";
 
-    JOptionPane.showMessageDialog(
-        null,
-        "Database Error: " + e.getMessage()
-    );
-}
+    try (java.sql.PreparedStatement pst = conn.prepareStatement(sql)) {
 
+        pst.setString(1, username);
+        pst.setString(2, password);
+
+        try (java.sql.ResultSet rs = pst.executeQuery()) {
+
+            if (rs.next()) {
+
+                String role = rs.getString("role");
+
+                javax.swing.JOptionPane.showMessageDialog(
+                        this,
+                        "Login successful! Welcome, " + username
+                );
+
+                // Identify the user's role
+                if ("Admin".equalsIgnoreCase(role)) {
+
+                    Admin admin = new Admin();
+                    admin.setVisible(true);
+
+                } else if ("Student".equalsIgnoreCase(role)) {
+
+                    Student student = new Student();
+                    student.setVisible(true);
+
+                } else {
+
+                    javax.swing.JOptionPane.showMessageDialog(
+                            this,
+                            "Unknown user role.",
+                            "Login Error",
+                            javax.swing.JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                // Close the Login form
+                this.dispose();
+
+            } else {
+
+                javax.swing.JOptionPane.showMessageDialog(
+                        this,
+                        "Invalid username or password.",
+                        "Login Failed",
+                        javax.swing.JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+
+    } catch (java.sql.SQLException e) {
+
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Database error: " + e.getMessage(),
+                "Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+    }
 
         
                      
@@ -187,9 +212,11 @@ try {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbllogin;
-    private javax.swing.JPasswordField txt_password;
-    private javax.swing.JTextField txt_username;
+    private javax.swing.JLabel lblwelcome;
+    private javax.swing.JPasswordField txtpassword;
+    private javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables
 
 
