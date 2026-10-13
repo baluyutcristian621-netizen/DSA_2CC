@@ -29,44 +29,51 @@ public class Admin extends javax.swing.JFrame {
     ResultSet rs;
     
     public void loadUsers() {
-    // Your JTable refresh code goes here
-     try {
 
-        String sql = "SELECT id, Firstname, Lastname, Age, Course, Section, username "
-                   + "FROM user";
+   DefaultTableModel model =
+            (DefaultTableModel) tblusers.getModel();
 
-        pst = conn.prepareStatement(sql);
-        rs = pst.executeQuery();
+    // Clear existing rows
+    model.setRowCount(0);
 
-        javax.swing.table.DefaultTableModel model =
-                (javax.swing.table.DefaultTableModel) tblusers.getModel();
+    String sql = "SELECT id, Firstname, Lastname, Age, "
+               + "Course, Section, username FROM user";
 
-        // Clear existing rows
-        model.setRowCount(0);
-
-        // Add records to JTable
-        while (rs.next()) {
-
-            model.addRow(new Object[]{
-                rs.getInt("id"),
-                rs.getString("Firstname"),
-                rs.getString("Lastname"),
-                rs.getInt("Age"),
-                rs.getString("Course"),
-                rs.getString("Section"),
-                rs.getString("username")
-            });
+    try {
+        if (conn == null || conn.isClosed()) {
+            JOptionPane.showMessageDialog(this,
+                    "Database connection is not available.");
+            return;
         }
 
-    } catch (SQLException e) {
+        try (PreparedStatement pst = conn.prepareStatement(sql);
+             ResultSet rs = pst.executeQuery()) {
 
-        javax.swing.JOptionPane.showMessageDialog(
-                this,
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getInt("id"),
+                    rs.getString("Firstname"),
+                    rs.getString("Lastname"),
+                    rs.getInt("Age"),
+                    rs.getString("Course"),
+                    rs.getString("Section"),
+                    rs.getString("username")
+                });
+            }
+        }
+
+        // Update total student count
+        lbltotalstudent.setText(
+                "Total Students: " + model.getRowCount()
+        );
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this,
                 "Error loading users: " + e.getMessage(),
                 "Database Error",
-                javax.swing.JOptionPane.ERROR_MESSAGE
-        );
-    }  
+                JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
 }
 
     private int selectedUserId = -1;  
@@ -86,7 +93,7 @@ public class Admin extends javax.swing.JFrame {
         );
                
           
-       // Make the table editable except for the ID column
+      // Set the table model
     DefaultTableModel model = new DefaultTableModel(
         new Object[][] {},
         new String[] {
@@ -100,9 +107,10 @@ public class Admin extends javax.swing.JFrame {
         }
     };
 
-    // Apply the editable model to the table
     tblusers.setModel(model);
 
+    // Load saved students from the database
+    loadUsers();
     // TODO: Initialize conn before loading users.
     // Call loadUsers() after your database connection is ready. 
       
@@ -235,126 +243,170 @@ private Object[] getColumnNames() {
     }//GEN-LAST:event_btnlogoutActionPerformed
 
     private void btnaddstudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddstudentActionPerformed
-        // Finish editing the current cell first
-     Addstudent form = new Addstudent(this);
+         Addstudent form = new Addstudent(this);
     form.setLocationRelativeTo(this);
     form.setVisible(true);
-    
-        if (tblusers.isEditing()) {
-            if (!tblusers.getCellEditor().stopCellEditing()) {
-                return;
-            }
-        }
-
-        // Get the selected row
-        int row = tblusers.getSelectedRow();
-
-        if (row == -1) {
-            JOptionPane.showMessageDialog(
-                this,
-                "Please select the user you want to update."
-            );
-            return;
-        }
-
-        try {
-            // Get the ID of the selected user
-            int id = Integer.parseInt(
-                tblusers.getValueAt(row, 0).toString()
-            );
-
-            // Read the edited values
-            String firstname =
-            tblusers.getValueAt(row, 1).toString().trim();
-
-            String lastname =
-            tblusers.getValueAt(row, 2).toString().trim();
-
-            String ageText =
-            tblusers.getValueAt(row, 3).toString().trim();
-
-            String course =
-            tblusers.getValueAt(row, 4).toString().trim();
-
-            String section =
-            tblusers.getValueAt(row, 5).toString().trim();
-
-            String username =
-            tblusers.getValueAt(row, 6).toString().trim();
-
-            // Check for empty fields
-            if (firstname.isEmpty() || lastname.isEmpty()
-                || ageText.isEmpty() || course.isEmpty()
-                || section.isEmpty() || username.isEmpty()) {
-
-                JOptionPane.showMessageDialog(
-                    this, "Please fill in all fields."
-                );
-                return;
-            }
-
-            // Validate age
-            int age = Integer.parseInt(ageText);
-
-            if (age <= 0 || age > 100) {
-                JOptionPane.showMessageDialog(
-                    this, "Please enter a valid age."
-                );
-                return;
-            }
-
-            // Update the selected user's database record
-            String sql = "UPDATE user SET Firstname=?, Lastname=?, "
-            + "Age=?, Course=?, Section=?, username=? "
-            + "WHERE id=?";
-
-            try (PreparedStatement pst = conn.prepareStatement(sql)) {
-
-                pst.setString(1, firstname);
-                pst.setString(2, lastname);
-                pst.setInt(3, age);
-                pst.setString(4, course);
-                pst.setString(5, section);
-                pst.setString(6, username);
-                pst.setInt(7, id);
-
-                int result = pst.executeUpdate();
-
-                if (result > 0) {
-                    JOptionPane.showMessageDialog(
-                        this, "User updated successfully!"
-                    );
-
-                    // Refresh the table using the latest database records
-                    loadUsers();
-
-                } else {
-                    JOptionPane.showMessageDialog(
-                        this, "No matching user found."
-                    );
-                }
-            }
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(
-                this,
-                "Age must be a valid number.",
-                "Invalid Input",
-                JOptionPane.ERROR_MESSAGE
-            );
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(
-                this,
-                "Error updating user: " + e.getMessage(),
-                "Database Error",
-                JOptionPane.ERROR_MESSAGE
-            );
-        }
     }//GEN-LAST:event_btnaddstudentActionPerformed
 
     private void btnupdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdate1ActionPerformed
-        // TODO add your handling code here:
+       // Stop editing the table
+    if (tblusers.isEditing()) {
+        if (!tblusers.getCellEditor().stopCellEditing()) {
+            return;
+        }
+    }
+
+    int row = tblusers.getSelectedRow();
+
+    if (row == -1) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Please select the user you want to update."
+        );
+        return;
+    }
+
+    row = tblusers.convertRowIndexToModel(row);
+
+    try {
+        // Get user ID
+        int id = Integer.parseInt(
+            tblusers.getValueAt(row, 0).toString()
+        );
+
+        // Get values from the table
+        String firstname = tblusers.getValueAt(row, 1).toString().trim();
+        String lastname = tblusers.getValueAt(row, 2).toString().trim();
+        String ageText = tblusers.getValueAt(row, 3).toString().trim();
+        String course = tblusers.getValueAt(row, 4).toString().trim();
+        String section = tblusers.getValueAt(row, 5).toString().trim();
+        String username = tblusers.getValueAt(row, 6).toString().trim();
+
+        // Validate age only if entered
+        Integer age = null;
+
+        if (!ageText.isEmpty()) {
+            age = Integer.parseInt(ageText);
+
+            if (age <= 0 || age > 100) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Age must be between 1 and 100."
+                );
+                return;
+            }
+        }
+
+        // Get existing record from the database
+        String selectSQL = "SELECT * FROM user WHERE id = ?";
+
+        try (PreparedStatement selectPst =
+                 conn.prepareStatement(selectSQL)) {
+
+            selectPst.setInt(1, id);
+
+            try (ResultSet rs = selectPst.executeQuery()) {
+
+                if (!rs.next()) {
+                    JOptionPane.showMessageDialog(
+                        this,
+                        "User not found."
+                    );
+                    return;
+                }
+
+                // Keep existing values when fields are blank
+                if (firstname.isEmpty()) {
+                    firstname = rs.getString("Firstname");
+                }
+
+                if (lastname.isEmpty()) {
+                    lastname = rs.getString("Lastname");
+                }
+
+                if (ageText.isEmpty()) {
+                    int existingAge = rs.getInt("Age");
+
+                    if (rs.wasNull()) {
+                        age = null;
+                    } else {
+                        age = existingAge;
+                    }
+                }
+
+                if (course.isEmpty()) {
+                    course = rs.getString("Course");
+                }
+
+                if (section.isEmpty()) {
+                    section = rs.getString("Section");
+                }
+
+                if (username.isEmpty()) {
+                    username = rs.getString("username");
+                }
+            }
+        }
+
+        // Update the database
+        String updateSQL =
+            "UPDATE user SET Firstname = ?, Lastname = ?, "
+            + "Age = ?, Course = ?, Section = ?, username = ? "
+            + "WHERE id = ?";
+
+        try (PreparedStatement pst =
+                 conn.prepareStatement(updateSQL)) {
+
+            pst.setString(1, firstname);
+            pst.setString(2, lastname);
+
+            if (age == null) {
+                pst.setNull(3, java.sql.Types.INTEGER);
+            } else {
+                pst.setInt(3, age);
+            }
+
+            pst.setString(4, course);
+            pst.setString(5, section);
+            pst.setString(6, username);
+            pst.setInt(7, id);
+
+            int result = pst.executeUpdate();
+
+            if (result > 0) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "User updated successfully!"
+                );
+
+                loadUsers();
+
+            } else {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "No changes were made."
+                );
+            }
+        }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Age must be a valid number.",
+            "Invalid Input",
+            JOptionPane.ERROR_MESSAGE
+        );
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Error updating user: " + e.getMessage(),
+            "Database Error",
+            JOptionPane.ERROR_MESSAGE
+        );
+    }
+        
+        
     }//GEN-LAST:event_btnupdate1ActionPerformed
 
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed

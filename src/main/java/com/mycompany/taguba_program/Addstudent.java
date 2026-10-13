@@ -248,70 +248,105 @@ if (hasInput) {
     String course = txtcourse1.getText().trim();
     String section = txtsection.getText().trim();
 
+    // Check if all fields are filled
     if (username.isEmpty() || password.isEmpty()
             || firstname.isEmpty() || lastname.isEmpty()
             || age.isEmpty() || course.isEmpty()
             || section.isEmpty()) {
 
         JOptionPane.showMessageDialog(this,
-                "Please fill in all fields.");
+                "Please fill in all fields.",
+                "Missing Information",
+                JOptionPane.WARNING_MESSAGE);
         return;
     }
 
-    String sql = "INSERT INTO user "
-            + "(username, password, firstname, lastname, age, course, section) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    // Validate age
+    int studentAge;
 
     try {
+        studentAge = Integer.parseInt(age);
+
+        if (studentAge <= 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Age must be greater than zero.");
+            return;
+        }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this,
+                "Age must be a valid whole number.");
+        return;
+    }
+
+    // SQL statement: 8 columns and 8 parameters
+    String sql = "INSERT INTO user "
+            + "(Firstname, Lastname, Age, Course, Section, Password, username, role) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+    try {
+        // Check database connection
         if (conn == null || conn.isClosed()) {
             JOptionPane.showMessageDialog(this,
                     "Database connection is not available.");
             return;
         }
 
-        int studentAge = Integer.parseInt(age);
-
         try (PreparedStatement pst = conn.prepareStatement(sql)) {
-            pst.setString(1, username);
-            pst.setString(2, password);
-            pst.setString(3, firstname);
-            pst.setString(4, lastname);
-            pst.setInt(5, studentAge);
-            pst.setString(6, course);
-            pst.setString(7, section);
 
-            pst.executeUpdate();
+            // Set all 8 parameters in the correct order
+            pst.setString(1, firstname);
+            pst.setString(2, lastname);
+            pst.setInt(3, studentAge);
+            pst.setString(4, course);
+            pst.setString(5, section);
+            pst.setString(6, password);
+            pst.setString(7, username);
+            pst.setString(8, "Student");
+
+            // Execute insert
+            int rowsInserted = pst.executeUpdate();
+
+            if (rowsInserted > 0) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Student added successfully!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                // Refresh Admin JTable
+                if (admin != null) {
+                    admin.loadUsers();
+                }
+
+                // Clear all fields
+                txtusername.setText("");
+                txtpassword.setText("");
+                txtfirstname.setText("");
+                txtlastname.setText("");
+                txtage1.setText("");
+                txtcourse1.setText("");
+                txtsection.setText("");
+
+                // Close the Add Student form
+                dispose();
+            }
         }
-
-        JOptionPane.showMessageDialog(this,
-                "Student added successfully!");
-        
-
-        // Refresh the Admin JTable
-      if (admin != null) {
-        admin.loadUsers();
-      }
-
-        // Clear all fields
-        txtusername.setText("");
-        txtpassword.setText("");
-        txtfirstname.setText("");
-        txtlastname.setText("");
-        txtage1.setText("");
-        txtcourse1.setText("");
-        txtsection.setText("");
-
-        // Close the Add Student form
-        dispose();
-
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this,
-                "Age must be a valid number.");
 
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(this,
-                "Error saving student: " + e.getMessage());
-    }      
+                "Error saving student:\n" + e.getMessage(),
+                "Database Error",
+                JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+    
+    // Return to the Login form
+        Admin admin = new Admin();
+        admin.setVisible(true);
+
+        // Close the Admin Dashboard
+        this.dispose();
     }//GEN-LAST:event_btnsaveActionPerformed
 
     /**
