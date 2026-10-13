@@ -18,7 +18,7 @@ public class CRUD extends javax.swing.JFrame {
     loadTable("");
     }
       private static final String DB_URL =
-"jdbc:ucanaccess://C:/Users/ederw/OneDrive/Documents/StudentDB.accdb";
+        "jdbc:ucanaccess://C://Users//CL2-PC//Documents//bryy.accdb";
     private int selectedId = -1;
 
     private Connection getConnection() throws SQLException {
@@ -32,7 +32,7 @@ public class CRUD extends javax.swing.JFrame {
 
     model.setRowCount(0);
 
-    String sql = "SELECT * FROM students";
+    String sql = "SELECT * FROM STUDENTS";
 
     boolean hasKeyword =
             keyword != null && !keyword.trim().isEmpty();
@@ -284,7 +284,7 @@ public class CRUD extends javax.swing.JFrame {
     }
 
     String sql =
-            "INSERT INTO students "
+            "INSERT INTO STUDENTS "
           + "(StudentNumber, FirstName, LastName, Course, YearLevel) "
           + "VALUES (?, ?, ?, ?, ?)";
 
@@ -373,7 +373,7 @@ public class CRUD extends javax.swing.JFrame {
     }
 
     String sql =
-            "UPDATE students SET "
+            "UPDATE STUDENTS SET "
           + "StudentNumber=?, "
           + "FirstName=?, "
           + "LastName=?, "
@@ -450,7 +450,7 @@ public class CRUD extends javax.swing.JFrame {
     }
 
     String sql =
-            "DELETE FROM students WHERE ID=?";
+            "DELETE FROM STUDENTS WHERE ID=?";
 
     try (Connection con = getConnection();
          PreparedStatement ps = con.prepareStatement(sql)) {
