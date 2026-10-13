@@ -111,13 +111,13 @@ ResultSet rs;
         lblstudash.setText("STUDENT DASHBOARD");
         getContentPane().add(lblstudash, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
 
-        btnlogout.setBackground(new java.awt.Color(95, 90, 175));
+        btnlogout.setBackground(java.awt.Color.red);
         btnlogout.setForeground(new java.awt.Color(255, 255, 255));
         btnlogout.setText("logout");
         btnlogout.addActionListener(this::btnlogoutActionPerformed);
         getContentPane().add(btnlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(245, 247, 255));
+        jPanel1.setBackground(java.awt.Color.gray);
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 310));
 
         pack();

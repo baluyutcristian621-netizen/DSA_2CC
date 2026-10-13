@@ -27,14 +27,21 @@ public class Cafe extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnorder = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        btnorder = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnorder.setBackground(new java.awt.Color(141, 31, 31));
+        jLabel1.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Would you like to order?");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 240, -1));
+
+        jPanel1.setBackground(java.awt.Color.black);
+
+        btnorder.setBackground(java.awt.Color.darkGray);
         btnorder.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
         btnorder.setForeground(new java.awt.Color(255, 255, 255));
         btnorder.setText("Order Now");
@@ -43,14 +50,8 @@ public class Cafe extends javax.swing.JFrame {
                 btnorderActionPerformed(evt);
             }
         });
-        getContentPane().add(btnorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, -1, 50));
+        jPanel1.add(btnorder);
 
-        jLabel1.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Would you like to order?");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 240, -1));
-
-        jPanel1.setBackground(new java.awt.Color(133, 73, 73));
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 250));
 
         pack();

@@ -61,10 +61,10 @@ public class Addstudent extends javax.swing.JFrame {
         txtsection = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        btnsave = new javax.swing.JButton();
-        btncancel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        btnsave = new javax.swing.JButton();
+        btncancel = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -144,7 +144,7 @@ public class Addstudent extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 400, 0));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -159,29 +159,37 @@ public class Addstudent extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 410, 10));
 
-        btnsave.setBackground(new java.awt.Color(95, 90, 175));
+        jPanel5.setBackground(java.awt.Color.gray);
+
+        btnsave.setBackground(java.awt.Color.red);
         btnsave.setForeground(new java.awt.Color(255, 255, 255));
         btnsave.setText("Save student");
         btnsave.addActionListener(this::btnsaveActionPerformed);
-        getContentPane().add(btnsave, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 440, 100, 40));
 
-        btncancel.setBackground(new java.awt.Color(95, 90, 175));
+        btncancel.setBackground(java.awt.Color.red);
         btncancel.setForeground(new java.awt.Color(255, 255, 255));
         btncancel.setText("Cancel");
         btncancel.addActionListener(this::btncancelActionPerformed);
-        getContentPane().add(btncancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 440, 90, 40));
-
-        jPanel5.setBackground(new java.awt.Color(245, 245, 255));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 219, Short.MAX_VALUE)
+                .addComponent(btncancel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(439, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btncancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);

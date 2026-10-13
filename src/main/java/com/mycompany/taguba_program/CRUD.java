@@ -63,7 +63,7 @@ public class CRUD extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(245, 245, 255));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(102, 102, 102));
+        setBackground(java.awt.Color.gray);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(txtfname, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 180, -1));
         getContentPane().add(txtlname, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 180, -1));
@@ -90,7 +90,7 @@ public class CRUD extends javax.swing.JFrame {
         btnsign.setText("Sign Up");
         btnsign.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnsign.addActionListener(this::btnsignActionPerformed);
-        getContentPane().add(btnsign, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 90, 30));
+        getContentPane().add(btnsign, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 90, 30));
         getContentPane().add(txtage, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 180, -1));
 
         lblage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -130,7 +130,7 @@ public class CRUD extends javax.swing.JFrame {
         btnsignin.setForeground(new java.awt.Color(255, 255, 255));
         btnsignin.setText("Sign in");
         btnsignin.addActionListener(this::btnsigninActionPerformed);
-        getContentPane().add(btnsignin, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 80, 30));
+        getContentPane().add(btnsignin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 80, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

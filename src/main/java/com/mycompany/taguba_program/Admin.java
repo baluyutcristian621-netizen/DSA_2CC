@@ -215,7 +215,7 @@ private Object[] getColumnNames() {
         btndelete.addActionListener(this::btndeleteActionPerformed);
         getContentPane().add(btndelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, -1, 30));
 
-        jPanel2.setBackground(new java.awt.Color(245, 245, 255));
+        jPanel2.setBackground(java.awt.Color.gray);
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 430));
 
         pack();

@@ -42,7 +42,6 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         txtpassword = new javax.swing.JPasswordField();
         lbllogin = new javax.swing.JLabel();
-        lblwelcome = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,7 +56,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
         getContentPane().add(txtusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 140, -1));
 
-        jButton1.setBackground(new java.awt.Color(95, 90, 175));
+        jButton1.setBackground(java.awt.Color.red);
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Login ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -73,11 +72,7 @@ public class Login extends javax.swing.JFrame {
         lbllogin.setText("LOG IN");
         getContentPane().add(lbllogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
-        lblwelcome.setForeground(new java.awt.Color(204, 188, 232));
-        lblwelcome.setText("Welcome back! Please enter your acoount.");
-        getContentPane().add(lblwelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, -1));
-
-        jPanel1.setBackground(new java.awt.Color(245, 245, 255));
+        jPanel1.setBackground(java.awt.Color.gray);
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 320));
 
         pack();
@@ -214,7 +209,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbllogin;
-    private javax.swing.JLabel lblwelcome;
     private javax.swing.JPasswordField txtpassword;
     private javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables
