@@ -38,6 +38,7 @@ public class CRUD extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         txtfname = new javax.swing.JTextField();
         txtlname = new javax.swing.JTextField();
         txtcourse = new javax.swing.JTextField();
@@ -55,9 +56,11 @@ public class CRUD extends javax.swing.JFrame {
         txtuser = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         lblcreate = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        btnsignin = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 255));
+
+        jPanel2.setBackground(new java.awt.Color(245, 245, 255));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -87,7 +90,7 @@ public class CRUD extends javax.swing.JFrame {
         btnsign.setText("Sign Up");
         btnsign.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnsign.addActionListener(this::btnsignActionPerformed);
-        getContentPane().add(btnsign, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 100, 30));
+        getContentPane().add(btnsign, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 90, 30));
         getContentPane().add(txtage, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 180, -1));
 
         lblage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -122,8 +125,12 @@ public class CRUD extends javax.swing.JFrame {
         lblcreate.setText("Create your student account");
         getContentPane().add(lblcreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, -1, -1));
 
-        jPanel2.setBackground(new java.awt.Color(245, 245, 255));
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 370));
+        btnsignin.setBackground(new java.awt.Color(95, 90, 175));
+        btnsignin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnsignin.setForeground(new java.awt.Color(255, 255, 255));
+        btnsignin.setText("Sign in");
+        btnsignin.addActionListener(this::btnsigninActionPerformed);
+        getContentPane().add(btnsignin, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 80, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -311,6 +318,16 @@ public class CRUD extends javax.swing.JFrame {
       
     }//GEN-LAST:event_btnsignActionPerformed
 
+    private void btnsigninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsigninActionPerformed
+        // TODO add your handling code here:
+         // Open the Login form only after successful registration
+        Login login = new Login();
+        login.setVisible(true);
+
+        // Close the registration form
+        this.dispose();
+    }//GEN-LAST:event_btnsigninActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -321,6 +338,7 @@ public class CRUD extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnsign;
+    private javax.swing.JButton btnsignin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
