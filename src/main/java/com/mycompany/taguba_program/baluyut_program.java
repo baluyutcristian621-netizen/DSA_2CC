@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  * @author CL2-PC
  */
-public class Taguba_program {
+public class baluyut_program {
 
     public static void main(String[] args) {
        Scanner input = new Scanner(System.in);

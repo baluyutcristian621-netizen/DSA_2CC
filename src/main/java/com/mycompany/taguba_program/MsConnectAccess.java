@@ -6,8 +6,6 @@ package com.mycompany.taguba_program;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -20,7 +18,7 @@ public class MsConnectAccess {
 
     public static Connection conn() {
         try {
-            String url = "jdbc:ucanaccess://C:\\Users\\CL2-PC\\Downloads\\databeje.accdb";
+            String url = "jdbc:ucanaccess://C://Users//CL2-PC//Documents//Database6.accdb";
             Connection conn = DriverManager.getConnection(url);
             return conn;
         } catch (SQLException e) {

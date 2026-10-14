@@ -4,19 +4,10 @@
  */
 package com.mycompany.taguba_program;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -41,6 +32,14 @@ public class Admin extends javax.swing.JFrame {
 
     try {
         if (conn == null || conn.isClosed()) {
+                try {
+        ResultSet t = conn.getMetaData().getTables(null, null, "%", new String[]{"TABLE"});
+        while (t.next()) {
+            System.out.println("Table found: " + t.getString("TABLE_NAME"));
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
             JOptionPane.showMessageDialog(this,
                     "Database connection is not available.");
             return;
