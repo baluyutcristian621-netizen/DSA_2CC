@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.bryan_program;
+package com.mycompany.facun_program;
 import java.util.Scanner;
 /**
  *
  * @author CL2-PC
  */
-public class Bryan_program {
+public class facun_program {
 
     public static void main(String[] args) {
         Scanner input =new Scanner(System.in);
