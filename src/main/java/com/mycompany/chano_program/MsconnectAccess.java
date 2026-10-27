@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.facun_program;
+package com.mycompany.chano_program;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
  */
 public class MsconnectAccess {
     private static final String URL =
-            "jdbc:ucanaccess://C://Users//CL2-PC//Documents//bryy.accdb";
+            "jdbc:ucanaccess://C:\\Users\\CL2-PC\\Downloads/bryy.accdb";
 
     public static Connection getConnection() {
         Connection con = null;

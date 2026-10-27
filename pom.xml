@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mycompany</groupId>
-    <artifactId>facun_program</artifactId>
+    <artifactId>chan_program</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -34,5 +34,5 @@
         <maven.compiler.release>24</maven.compiler.release>
         <exec.mainClass>com.mycompany.bryan_program.Bryan_program</exec.mainClass>
     </properties>
-    <name>facun_program</name>
+    <name>chan_program</name>
 </project>

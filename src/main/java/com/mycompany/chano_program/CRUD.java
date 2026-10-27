@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.facun_program;
+package com.mycompany.chano_program;
 
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -18,7 +18,7 @@ public class CRUD extends javax.swing.JFrame {
     loadTable("");
     }
       private static final String DB_URL =
-        "jdbc:ucanaccess://C://Users//CL2-PC//Documents//bryy.accdb";
+        "jdbc:ucanaccess://C:\\Users\\CL2-PC\\Downloads/bryy.accdb";
     private int selectedId = -1;
 
     private Connection getConnection() throws SQLException {
@@ -195,22 +195,22 @@ public class CRUD extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(255, 255, 153));
         jButton2.setText("ADD");
         jButton2.addActionListener(this::jButton2ActionPerformed);
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, -1, -1));
 
         jButton3.setBackground(new java.awt.Color(102, 153, 0));
         jButton3.setText("UPDATE");
         jButton3.addActionListener(this::jButton3ActionPerformed);
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 170, -1, -1));
 
         jButton4.setBackground(new java.awt.Color(0, 102, 153));
         jButton4.setText("DELETE");
         jButton4.addActionListener(this::jButton4ActionPerformed);
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 200, -1, -1));
 
         jButton5.setBackground(new java.awt.Color(255, 0, 0));
         jButton5.setText("CLEAR");
         jButton5.addActionListener(this::jButton5ActionPerformed);
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, -1, -1));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 200, -1, -1));
 
         jTable1.setForeground(new java.awt.Color(0, 102, 102));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -228,7 +228,7 @@ public class CRUD extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 750, 280));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 750, 280));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -258,7 +258,7 @@ public class CRUD extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(
                 this,
-                "Punan muna lahat ng field."
+                "FILL ALL FIILED."
         );
 
         return;
@@ -317,7 +317,7 @@ public class CRUD extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(
                 this,
-                "Naidagdag na ang student."
+                "ADDED STUDENT."
         );
 
         clearFields();
